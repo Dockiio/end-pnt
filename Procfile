@@ -1,1 +1,1 @@
-web: uvicorn PD-rest:app
+web: python PD-rest.py
