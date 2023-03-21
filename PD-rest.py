@@ -1,4 +1,5 @@
 import joblib
+import os
 import uvicorn
 from fastapi import FastAPI, Query
 import pandas as pd
@@ -77,3 +78,5 @@ def predict_sentiment(symp_lst: List[str] = Query(None)):
 	model = load_model('disease_model1.h5')
 	
 	return {"pred":(l[np.argmax(model.predict(df))])}
+if __name__ == '__main__': 
+    uvicorn.run("PD-rest:app", host="0.0.0.0", port=os.getenv("PORT", default=5000), log_level="info")
