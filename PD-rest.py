@@ -9,11 +9,20 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 import numpy as np
 from typing import List
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
 warnings.filterwarnings("ignore")
 
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def encode_data(dataset , data_dict_weigth):
     cols = dataset.columns
