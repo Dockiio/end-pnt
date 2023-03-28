@@ -63,20 +63,22 @@ def predict_sentiment(symp_lst: List[str] = Query(None)):
 
 	# for col in range (len(columns)):
 	# print(symp_lst)
-	for i in enumerate(symp_lst):
-		# for col in range(len(columns)):
-		
-		symp_lst_o[(i[0])] = i[1]
-			# break
-		#continue
-	qw = pd.DataFrame([symp_lst_o], columns=columns)
-	print(qw)
-	df = encode_data(qw, data_dict)
-	
-	df = tf.convert_to_tensor(np.asarray(df.values).astype(np.float32()))
-	
-	model = load_model('disease_model1.h5')
-	
-	return {"pred":(l[np.argmax(model.predict(df))])}
+
+    if symp_lst is not None:
+        for i in enumerate(symp_lst):
+            # for col in range(len(columns)):
+            
+            symp_lst_o[(i[0])] = i[1]
+                # break
+            #continue
+        qw = pd.DataFrame([symp_lst_o], columns=columns)
+        print(qw)
+        df = encode_data(qw, data_dict)
+        
+        df = tf.convert_to_tensor(np.asarray(df.values).astype(np.float32()))
+        
+        model = load_model('disease_model1.h5')
+        
+        return {"pred":(l[np.argmax(model.predict(df))])}
 if __name__ == '__main__': 
     uvicorn.run("PD-rest:app", host="0.0.0.0", port=os.getenv("PORT", default=5000), log_level="info")
