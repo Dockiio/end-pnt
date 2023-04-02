@@ -77,7 +77,7 @@ def predict_sentiment(symp_lst: List[str] = Query(None)):
         for i in enumerate(symp_lst):
             # for col in range(len(columns)):
             
-            symp_lst_o[(i[0])] = i[1]
+            symp_lst_o[(i[0])+1] = i[1]
                 # break
             #continue
         qw = pd.DataFrame([symp_lst_o], columns=columns)
